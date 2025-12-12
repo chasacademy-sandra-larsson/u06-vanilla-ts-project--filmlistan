@@ -462,75 +462,13 @@ export default function about() {
 
 **Fördelar med global state:**
 - ✅ State delas mellan komponenter
-- ✅ State bevaras vid navigation (tillsammans med navigation-hantering)
 - ✅ Automatisk re-rendering när state ändras
 - ✅ Centraliserad state-hantering
 
-**Viktigt:** För att state ska bevaras vid navigation måste du också ha navigation-hantering (se Steg 7)!
 
 ---
 
-## Steg 7: Navigation
-
-För att hantera navigation behöver vi intercepta länkar och använda History API. **Detta är kritiskt för att bevara state!**
-
-### Varför behövs detta?
-
-Utan navigation-hantering kommer länkar att ladda om hela sidan, vilket innebär:
-- ❌ All JavaScript körs om från början
-- ❌ Store skapas på nytt med initial state
-- ❌ All state förloras (t.ex. räknaren återställs till 1)
-- ❌ SPA-funktionaliteten bryts
-
-Med navigation-hantering:
-- ✅ Sidan laddas inte om
-- ✅ State bevaras i store
-- ✅ Snabb, smidig navigation
-- ✅ Fungerar som en riktig SPA
-
-### Uppdatera `src/main.ts`
-
-Lägg till navigation-hantering efter `popstate`-event listener:
-
-```typescript
-// Rerender-logic 
-// Om sidan ändras, rerenderas appen
-window.addEventListener("popstate", () => {
-  renderApp();
-});
-
-// Intercepta länkar och hantera navigation
-// Detta förhindrar att sidan laddas om och bevarar state
-document.addEventListener("click", (e) => {
-  const target = e.target as HTMLElement;
-  const link = target.closest("a");
-  
-  if (link && link.href.startsWith(window.location.origin)) {
-    e.preventDefault();
-    const path = new URL(link.href).pathname;
-    window.history.pushState({}, "", path);
-    renderApp();
-  }
-});
-
-// Set render callback
-setRenderCallback(renderApp);
-```
-
-**Förklaring:**
-- `closest("a")` - hittar närmaste länk-element (fungerar även om klicket är på ett barn-element)
-- `startsWith(window.location.origin)` - kontrollerar att länken är intern (samma domän)
-- `preventDefault()` - förhindrar standard browser-navigation (sidan laddas inte om)
-- `pushState()` - uppdaterar URL utan att ladda om sidan
-- `renderApp()` - renderar om sidan med nytt innehåll
-
-**Exempel:** Om du uppdaterar antal båtar till 5, navigerar till Home, och sedan tillbaka till About, kommer båtantalet fortfarande vara 5 eftersom state bevaras i store.
-
-**Viktigt:** Denna kod måste finnas för att state ska bevaras vid navigation!
-
----
-
-## Steg 8: Styling
+## Steg 7: Styling
 
 ### `src/global.css` - Design System
 
@@ -634,7 +572,6 @@ Du har nu byggt en fungerande SPA med:
 ✅ **Statiska sidor** - Enkla HTML-sidor  
 ✅ **Dynamiska sidor** - TypeScript-komponenter med interaktivitet  
 ✅ **State Management** - Centraliserad state-hantering  
-✅ **Navigation** - Sömlös navigation med History API  
 ✅ **Styling** - Design system med CSS-variabler  
 
 ## 🎯 Nästa steg
