@@ -1,4 +1,4 @@
-# Projektuppgift: Filmkollen
+# Projektuppgift: Filmkollen 🍿
 
 ## 📋 Översikt
 
