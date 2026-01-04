@@ -216,7 +216,7 @@ I det här projektet ska du arbeta mot en riktig Express‑server med SQLite‑d
 
 ```bash
 # Terminal 1: Start the backend server
-cd movie-api
+cd server
 npm install
 npm run dev
 # Backend running on http://localhost:3000
@@ -232,7 +232,7 @@ npm run dev
 
 ### Göra API‑anrop
 
-För exempel på hur ni anropar backend‑API:t, se `movie-api/README.md` (curl‑exempel och frontend‑kod).  
+För exempel på hur ni anropar backend‑API:t, se `server/README.md` (curl‑exempel och frontend‑kod).  
 I denna uppgift räcker det att ni:
 
 - Läser vilka endpoints som finns (metod, URL, body, svar).

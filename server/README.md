@@ -473,7 +473,7 @@ PORT=3001
 
 ### Can't Connect from Frontend
 Make sure:
-1. Backend is running (`npm run dev` in movie-api folder)
+1. Backend is running (`npm run dev` in server folder)
 2. Using correct URL: `http://localhost:3000`
 3. Including `x-user-id` header
 4. CORS is enabled (it is by default)
